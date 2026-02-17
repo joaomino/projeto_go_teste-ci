@@ -42,7 +42,7 @@ func TestVerificaStatusCodeDaSaudacaoComParametro(t *testing.T) {
 	resposta := httptest.NewRecorder()
 	r.ServeHTTP(resposta, req)
 	assert.Equal(t, http.StatusOK, resposta.Code, "Deveriam ser iguais")
-	mockDaResposta := `{"API diz":"E aí, gui. Tudo beleza?"}`
+	mockDaResposta := `{"API diz":"E ai gui, Tudo beleza?"}`
 	respostaBody, _ := ioutil.ReadAll(resposta.Body)
 	assert.Equal(t, mockDaResposta, string(respostaBody))
 }
@@ -82,7 +82,10 @@ func TestBuscaAlunoPorIDHandler(t *testing.T) {
 	resposta := httptest.NewRecorder()
 	r.ServeHTTP(resposta, req)
 	var alunoMock models.Aluno
-	json.Unmarshal(resposta.Body.Bytes(), &alunoMock)
+	// json.Unmarshal(resposta.Body.Bytes(), &alunoMock)
+	if err := json.Unmarshal(resposta.Body.Bytes(), &alunoMock); err != nil {
+    	t.Fatalf("erro ao fazer unmarshal: %v", err)
+	}
 	assert.Equal(t, "Nome do Aluno Teste", alunoMock.Nome, "Os nomes devem ser iguais")
 	assert.Equal(t, "12345678901", alunoMock.CPF)
 	assert.Equal(t, "123456789", alunoMock.RG)
@@ -114,7 +117,10 @@ func TestEditaUmAlunoHandler(t *testing.T) {
 	resposta := httptest.NewRecorder()
 	r.ServeHTTP(resposta, req)
 	var alunoMockAtualizado models.Aluno
-	json.Unmarshal(resposta.Body.Bytes(), &alunoMockAtualizado)
+	// json.Unmarshal(resposta.Body.Bytes(), &alunoMockAtualizado)
+	if err := json.Unmarshal(resposta.Body.Bytes(), &alunoMockAtualizado); err != nil {
+    	t.Fatalf("erro ao fazer unmarshal: %v", err)
+	}
 	assert.Equal(t, "47123456789", alunoMockAtualizado.CPF)
 	assert.Equal(t, "123456700", alunoMockAtualizado.RG)
 	assert.Equal(t, "Nome do Aluno Teste", alunoMockAtualizado.Nome)

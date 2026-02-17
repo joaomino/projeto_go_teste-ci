@@ -11,7 +11,11 @@ import (
 func Saudacoes(c *gin.Context) {
 	nome := c.Params.ByName("nome")
 	c.JSON(200, gin.H{
+<<<<<<< HEAD
 		"API diz": "E aí, " + nome + ". Tudo beleza?",
+=======
+		"API diz": "E ai " + nome + ", Tudo beleza?",
+>>>>>>> d9510cb (estado local antes de vincular ao remoto)
 	})
 }
 

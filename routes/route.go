@@ -19,5 +19,9 @@ func HandleRequest() {
 	r.GET("/alunos/", controllers.BuscaAlunoPorCPF)
 	r.GET("/index", controllers.ExibePaginaIndex)
 	r.NoRoute(controllers.RotaNaoEncontrada)
-	_ = r.Run()
+	// r.Run()
+	if err := r.Run(); err != nil {
+    	panic(err)
+	}
+
 }
